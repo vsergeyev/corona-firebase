@@ -20,3 +20,51 @@ It utilize Firebase REST API to retrieve, add, change and delete data.
 
 ``main.lua`` file contains useful tests. Run it on Corona Emulator and look
 into console output to see what happening. It using https://corona.firebaseio.com/ DB for tests.
+
+
+# Methods
+
+Importing library returns a db object. It mimics behaviour of Firebase REST API https://www.firebase.com/docs/rest/api/
+
+    firebase = require('corona_firebase')
+    local db = firebase('https://[YOUR_DB_ID_HERE].firebaseio.com/')
+
+On a background ``network.request`` used from Corona SDK https://docs.coronalabs.com/api/library/network/request.html
+
+## get - reading data
+
+    db:get("[ENDPOINT]", function(event)
+    	if ( event.isError ) then
+            -- Network error
+        elseif ( event.phase == "began" ) then
+            -- Request started, something useful may be in event.response
+        elseif ( event.phase == "progress" ) then
+            -- Request in progress
+        elseif ( event.phase == "ended" ) then
+            -- Finished, data should be in event.response
+        end
+    end)
+
+## post - pushing data
+
+    db:post("[ENDPOINT]", '[JSON_DATA]', function(event)
+        -- ..
+    end)
+
+## patch - updating data
+
+    db:patch("[ENDPOINT]", '[JSON_DATA]', function(event)
+        -- ..
+    end)
+
+## put - writing data
+
+    db:put("[ENDPOINT]", '{"key": "value"}', function(event)
+    	-- ..
+    end)
+
+## delete - removing data
+
+    db:delete("[ENDPOINT]", function(event)
+    	-- ..
+    end)
