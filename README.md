@@ -9,7 +9,7 @@ Streaming API supported too.
 
     firebase = require('corona_firebase')
     local db = firebase('https://corona.firebaseio.com/')
-    db:get("users", function(event)
+    db:get("users", nil, function(event)
       if ( event.isError ) then
         print( "Network error!" )
       else
@@ -34,7 +34,7 @@ On a background ``network.request`` used from Corona SDK https://docs.coronalabs
 
 ## get - reading data
 
-    db:get("[ENDPOINT]", function(event)
+    db:get("[ENDPOINT]", "[QUERY]", function(event)
     	if ( event.isError ) then
             -- Network error
         elseif ( event.phase == "began" ) then
@@ -48,25 +48,25 @@ On a background ``network.request`` used from Corona SDK https://docs.coronalabs
 
 ## post - pushing data
 
-    db:post("[ENDPOINT]", '[JSON_DATA]', function(event)
+    db:post("[ENDPOINT]", '[JSON_DATA]', "[QUERY]", function(event)
         -- ..
     end)
 
 ## patch - updating data
 
-    db:patch("[ENDPOINT]", '[JSON_DATA]', function(event)
+    db:patch("[ENDPOINT]", '[JSON_DATA]', "[QUERY]", function(event)
         -- ..
     end)
 
 ## put - writing data
 
-    db:put("[ENDPOINT]", '{"key": "value"}', function(event)
+    db:put("[ENDPOINT]", '{"key": "value"}', "[QUERY]", function(event)
     	-- ..
     end)
 
 ## delete - removing data
 
-    db:delete("[ENDPOINT]", function(event)
+    db:delete("[ENDPOINT]", "[QUERY]", function(event)
     	-- ..
     end)
 
@@ -74,7 +74,7 @@ On a background ``network.request`` used from Corona SDK https://docs.coronalabs
 
 ## on - subscribing on live data updates
 
-    db:on("[ENDPOINT]", function( data )
+    db:on("[ENDPOINT]", "[QUERY]", function( data )
         print("Got data!")
         print(data)
     end)
@@ -88,3 +88,7 @@ Firebase docs on it: https://www.firebase.com/docs/rest/api/#section-streaming
 
 Every method accepts ``query`` string to pass additional query to Firebase REST API.
 It accepts fololwing parameters and values: https://www.firebase.com/docs/rest/api/#section-query-parameters
+
+    db:get("users", "?auth=CREDENTIAL", function(event)
+        -- ..
+    end)
