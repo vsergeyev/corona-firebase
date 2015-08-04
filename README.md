@@ -81,3 +81,10 @@ On a background ``network.request`` used from Corona SDK https://docs.coronalabs
 
 ``EventSource / Server-Sent Events`` protocol used here. Client's ``Accept`` header is set to ``text/event-stream``. Every time ''data'' changed on server your application will receive a
 notification. Timeout errors handled as well.
+
+Firebase docs on it: https://www.firebase.com/docs/rest/api/#section-streaming
+
+# Query Parameters
+
+Every method accepts ``query`` string to pass additional query to Firebase REST API.
+It accepts fololwing parameters and values: https://www.firebase.com/docs/rest/api/#section-query-parameters

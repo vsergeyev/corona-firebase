@@ -24,20 +24,29 @@ local Firebase = {
 }
 
 
-function Firebase:request(ref, method, data, callback)
+function Firebase:request(ref, method, data, query, callback)
 	local url = self.url .. ref .. ".json"
 	local params = {}
 	params.body = data
+
+	if query then
+		url = url .. query
+	end
+	print(url)
 
 	-- https://docs.coronalabs.com/api/library/network/request.html
 	network.request(url, method, callback, params)
 end
 
 
-function Firebase:on(ref, callback)
+function Firebase:on(ref, query, callback)
 	local url = self.url .. ref .. ".json"
 	local headers = {}
 	local params = {}
+
+	if query then
+		url = url .. query
+	end
 
 	-- Check for data file and retun it to caller
 	local streamed_get = function(event)
@@ -109,28 +118,28 @@ function Firebase:on(ref, callback)
 end
 
 
-function Firebase:get(ref, callback)
-	self:request(ref, "GET", nil, callback)
+function Firebase:get(ref, query, callback)
+	self:request(ref, "GET", nil, query, callback)
 end
 
 
-function Firebase:put(ref, data, callback)
-	self:request(ref, "PUT", data, callback)
+function Firebase:put(ref, data, query, callback)
+	self:request(ref, "PUT", data, query, callback)
 end
 
 
-function Firebase:post(ref, data, callback)
-	self:request(ref, "POST", data, callback)
+function Firebase:post(ref, data, query, callback)
+	self:request(ref, "POST", data, query, callback)
 end
 
 
-function Firebase:patch(ref, data, callback)
-	self:request(ref, "PATCH", data, callback)
+function Firebase:patch(ref, data, query, callback)
+	self:request(ref, "PATCH", data, query, callback)
 end
 
 
-function Firebase:delete(ref, callback)
-	self:request(ref, "DELETE", nil, callback)
+function Firebase:delete(ref, query, callback)
+	self:request(ref, "DELETE", nil, query, callback)
 end
 
 
