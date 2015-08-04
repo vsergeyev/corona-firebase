@@ -68,3 +68,15 @@ On a background ``network.request`` used from Corona SDK https://docs.coronalabs
     db:delete("[ENDPOINT]", function(event)
     	-- ..
     end)
+
+# Streaming using EventSource / Server-Sent Events protocol.
+
+## on - subscribing on live data updates with ''text/event-stream'' header
+
+    db:on("[ENDPOINT]", function( data )
+        print("Got data!")
+        print(data)
+    end)
+
+Every time ''data'' changed on server your application will receive a
+notification.
