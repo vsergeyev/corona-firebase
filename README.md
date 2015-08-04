@@ -3,6 +3,7 @@
 Library to work with Firebase databases in Corona SDK based apps
 
 It utilize Firebase REST API to retrieve, add, change and delete data.
+Streaming API supported too.
 
 # Fast start
 
@@ -69,14 +70,14 @@ On a background ``network.request`` used from Corona SDK https://docs.coronalabs
     	-- ..
     end)
 
-# Streaming using EventSource / Server-Sent Events protocol.
+# Streaming
 
-## on - subscribing on live data updates with ''text/event-stream'' header
+## on - subscribing on live data updates
 
     db:on("[ENDPOINT]", function( data )
         print("Got data!")
         print(data)
     end)
 
-Every time ''data'' changed on server your application will receive a
-notification.
+``EventSource / Server-Sent Events`` protocol used here. Client's ``Accept`` header is set to ``text/event-stream``. Every time ''data'' changed on server your application will receive a
+notification. Timeout errors handled as well.
